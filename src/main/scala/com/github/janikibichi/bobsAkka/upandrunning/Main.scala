@@ -5,7 +5,9 @@ import akka.event.Logging
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.ServerBinding
 import akka.stream.ActorMaterializer
-import com.typesafe.config.ConfigFactory
+import akka.util.Timeout
+import com.typesafe.config.{Config, ConfigFactory}
+
 import scala.concurrent.Future
 
 object Main extends App with RequestTimeout{
@@ -29,5 +31,14 @@ object Main extends App with RequestTimeout{
     case ex: Exception =>
       log.error(ex, "Failed to bind to {}:{}!", host, port)
       actorSystem.terminate()
+  }
+}
+
+trait RequestTimeout {
+  import scala.concurrent.duration._
+  def requestTimeout(config: Config): Timeout = {
+    val t = config.getString("akka.http.server.request-timeout")
+    val d = Duration(t)
+    FiniteDuration(d.length, d.unit)
   }
 }
