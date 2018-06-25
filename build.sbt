@@ -1,3 +1,5 @@
+enablePlugins(JavaServerAppPackaging)
+
 name := "UpAndRunning-BobsAkka"
 
 version := "1.0"
@@ -18,3 +20,8 @@ libraryDependencies ++= {
     "org.scalatest" %% "scalatest" % "2.2.0" % Test
   )
 }
+
+//Assembly Settings
+mainClass in assembly := Some("com.github.janikibichi.bobsAkka.upandrunning.Main")
+
+assemblyJarName in assembly := "UpAndRunning-BobsAkka.jar"

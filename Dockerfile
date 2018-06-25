@@ -15,7 +15,7 @@ RUN node -v && npm -v
 RUN snap install heroku --classic
 
 #Build
-# docker built -t JavaAndHerokuToolBelt:1.0 .
+# docker build -t javaandherokutoolbelt:1.0 .
 
 #Run Interactive TTY
 # docker run -IT JavaAndHerokuToolBelt
