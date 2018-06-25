@@ -8,13 +8,13 @@ object BoxOffice{
   def props(implicit timeout: Timeout) = Props(new BoxOffice)
   def name = "boxOffice"
 
-  case class CreateEvent(name: String, tickets: Int)
-  case class GetEvent(name: String)
+  case class  CreateEvent(name: String, tickets: Int)
+  case class  GetEvent(name: String)
   case object GetEvents
-  case class GetTickets(event: String, tickets: Int)
-  case class CancelEvent(name: String)
-  case class Event(name: String, tickets: Int)
-  case class Events(events: Vector[Event])
+  case class  GetTickets(event: String, tickets: Int)
+  case class  CancelEvent(name: String)
+  case class  Event(name: String, tickets: Int)
+  case class  Events(events: Vector[Event])
 
   sealed trait EventResponse
   case class EventCreated(event: Event) extends EventResponse
@@ -37,6 +37,7 @@ class BoxOffice(implicit timeout: Timeout) extends Actor{
         eventTickets ! TicketSeller.Add(newTickets)
         sender() ! EventCreated(Event(name, tickets))
       }
+      context.child(name).fold(create())(_=> sender() ! EventExists)
 
     case GetTickets(event, tickets) =>
       def notFound() = sender() ! TicketSeller.Tickets(event)

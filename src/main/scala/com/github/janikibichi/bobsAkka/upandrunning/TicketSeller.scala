@@ -4,6 +4,7 @@ import akka.actor.{Actor, PoisonPill, Props}
 
 object TicketSeller{
   def props(event:String) = Props(new TicketSeller(event))
+
   case class Add(tickets: Vector[Ticket])
   case class Buy(tickets: Int)
   case class Ticket(id: Int)
@@ -14,6 +15,7 @@ object TicketSeller{
 
 class TicketSeller(event: String) extends Actor{
   import TicketSeller._
+
   var tickets = Vector.empty[Ticket]
 
   def receive = {

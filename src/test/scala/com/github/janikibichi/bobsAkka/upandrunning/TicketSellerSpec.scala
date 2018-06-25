@@ -12,13 +12,15 @@ class TicketSellerSpec extends TestKit(ActorSystem("testTickets"))
   "The TicketSeller" must{
     "Sell tickets until they are sold out" in{
       import TicketSeller._
+
       def mkTickets = (1 to 10).map(i=>Ticket(i)).toVector
       val event = "RHCP"
       val ticketingActor = system.actorOf(TicketSeller.props(event))
+
       ticketingActor ! Add(mkTickets)
       ticketingActor ! Buy(1)
 
-      expectMsg(Tickets(event))
+      expectMsg(Tickets(event, Vector(Ticket(1))))
 
       val nrs = (2 to 10)
       nrs.foreach(_ => ticketingActor ! Buy(1))
@@ -35,17 +37,20 @@ class TicketSellerSpec extends TestKit(ActorSystem("testTickets"))
 
     "Sell tickets in batches until they are sold out" in{
       import TicketSeller._
+
       val firstBatchSize = 10
 
       def mkTickets = (1 to(10*firstBatchSize)).map(i => Ticket(i)).toVector
+
       val event = "Madlib"
       val ticketingActor = system.actorOf(TicketSeller.props(event))
 
-      ticketingActor ! Aadd(mkTickets)
+      ticketingActor ! Add(mkTickets)
       ticketingActor ! Buy(firstBatchSize)
       val bought = (1 to firstBatchSize).map(Ticket).toVector
 
       expectMsg(Tickets(event, bought))
+
       val secondBatchSize = 5
       val nrBatches = 18
 
@@ -58,9 +63,10 @@ class TicketSellerSpec extends TestKit(ActorSystem("testTickets"))
         case (Tickets(event, bought), ix) =>
           bought.size must equal(secondBatchSize)
           val last = ix * secondBatchSize + firstBatchSize
-          val first = ix * secondBatchSize + firstBatchSize
+          val first = ix * secondBatchSize + firstBatchSize - (secondBatchSize -1)
           bought.map(_.id) must equal((first to last).toVector)
       }
+
       ticketingActor ! Buy(1)
       expectMsg(Tickets(event))
 
