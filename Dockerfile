@@ -21,7 +21,9 @@ RUN wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 RUN mkdir /upandrunning
 COPY . /upandrunning
 WORKDIR /upandrunning
-RUN setsid nohup sbt run &
+RUN sbt clean compile test
+
+#setsid nohup sbt run &
 
 #Build
 # sudo docker build -t javaandherokutoolbelt:1.0 .
