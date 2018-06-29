@@ -21,3 +21,5 @@ git checkout -b tdd_with_actors master
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.Greeter.scala</b>
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.SendingActor.scala</b>
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.SilentActor.scala</b>
+- Create a greeter with listener to live here:
+- Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.GreeterWithListener.scala</b>
