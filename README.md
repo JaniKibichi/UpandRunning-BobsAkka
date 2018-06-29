@@ -7,3 +7,17 @@ We test drive AKKA by creating the first APP - A ticket selling app. Notably. th
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.BoxOffice.scala<b>
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.TicketSeller.scala<b>
 - Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.EventMarshalling.scala<b>
+<br>
+-Branch out to explore TDD with actors
+````
+git checkout -b tdd_with_actors master
+````
+- Create the file in the src/test:<b>com.github.janikibichi.bobsAkka.upandrunning.SilentTestActor.scala</b>
+- Create the file in the src/test:<b>com.github.janikibichi.bobsAkka.upandrunning.FilteringTestActor.scala</b>
+- Create the file in the src/test:<b>com.github.janikibichi.bobsAkka.upandrunning.SendingActorTest.scala</b>
+- Create the file in the src/test:<b>com.github.janikibichi.bobsAkka.upandrunning.GreeterTest.scala</b>
+-In the src/main module:
+- Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.FilteringActor.scala</b>
+- Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.Greeter.scala</b>
+- Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.SendingActor.scala</b>
+- Create the file: <b>com.github.janikibichi.bobsAkka.upandrunning.SilentActor.scala</b>
